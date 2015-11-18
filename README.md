@@ -8,23 +8,27 @@ Bind `subnecto` to your desired namespace through the Subnecto factory function 
 
 	<script src="../subnecto.js"></script>
 	<script>
-		window.subnecto = SubnectoFactory();
+		window.Subnecto = SubnectoFactory();
 	</script>
 
 Create your models derived from the Subnecto models.
 
+	this.UserModel = function(parent) {
+		Subnecto.BaseModel.call(this, parent);
+		this.username = new Subnecto.ValueModel(this);
+	};
+
 Create a model container to hold your models, for example:
 
-	    var ModelsModel = function(parentParam) {
-	    	BaseModel.call(this, parentParam);
-	    	this.users = new UsersModel(this);
-	    	this.products = new ProductsModel(this);
-	    };
+    this.ModelsModel = function(parent) {
+    	Subnecto.BaseModel.call(this, parent);
+		this.user = new self.UserModel(this);
+    };
 
 Publishers are responsible for pushing changes to the models. Bind your publishers to model functions, using a DOM library of your choice.
 
 	var initModelPublishers = function() {
-		$('.users')
+
 	};
 	
 Subscribers respond to model events. Bind your subscribers to model functions, using a DOM library of your choice.
@@ -33,16 +37,14 @@ Subscribers respond to model events. Bind your subscribers to model functions, u
 		
 	};
 
-
 Instantiate and initialise the model. The `SuperModel` is the Subnecto model container, and is intended to be the container of your models container, `ModelsModel`.
 	    
-		var initModel = function() {
-	    	var superModel = new SuperModel();
-	    	superModel.models = new ModelsModel(this.superModel);
-	    	initModelPublishers();
-	    	initModelSubscribers();
-	    };
-
+	var initModel = function() {
+    	var superModel = new SuperModel();
+    	superModel.models = new ModelsModel(this.superModel);
+    	initModelPublishers();
+    	initModelSubscribers();
+    };
 
 
 ## License
