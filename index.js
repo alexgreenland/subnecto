@@ -25,7 +25,7 @@
 			});
 			
 			Subnecto.SubscriptionService.getInstance().subscribe(userModel.username, 'update', 'show-username-events', function(model) {
-				$('.username-update-events').append('<code>subnectoExampleApp.superModel.models.<strong>user.currentUser:update</strong></code><br>');
+				$('.username-update-events').append('<code>subnectoExampleApp.superModel.models.<strong>user.username:update</strong></code><br>');
 			});
 			
 			Subnecto.SubscriptionService.getInstance().subscribe(userModel, 'update', 'show-user-events', function(model) {
