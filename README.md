@@ -4,24 +4,24 @@ A lightweight, extensible and reactive model-driven library. Model events can be
 
 # Usage
 
-Bind `subnecto` to your desired namespace through the Subnecto factory function `SubnectoFactory`.
+Bind `subnecto` to your desired namespace with the Subnecto constructor.
 
 	<script src="../subnecto.js"></script>
 	<script>
-		window.Subnecto = SubnectoFactory();
+		window.subnecto = new Subnecto();
 	</script>
 
 Create your models derived from the Subnecto models.
 
 	this.UserModel = function(parent) {
-		Subnecto.BaseModel.call(this, parent);
-		this.username = new Subnecto.ValueModel(this);
+		subnecto.BaseModel.call(this, parent);
+		this.username = new subnecto.ValueModel(this);
 	};
 
 Create a model container to hold your models, for example:
 
     this.ModelsModel = function(parent) {
-    	Subnecto.BaseModel.call(this, parent);
+    	subnecto.BaseModel.call(this, parent);
 		this.user = new self.UserModel(this);
     };
 
