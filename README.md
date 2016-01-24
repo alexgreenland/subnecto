@@ -2,7 +2,9 @@
 
 A lightweight, extensible and reactive model-driven library. Model events can be subscribed to, and bubble up the hierarchy chain.
 
-## Node Setup
+# Setup
+
+## Node
 
 	// Subnecto constructor
 	var Subnecto = require('subnecto');
@@ -10,7 +12,7 @@ A lightweight, extensible and reactive model-driven library. Model events can be
 	// A Subnecto instance
 	var subnecto = new Subnecto();
 
-## Browser Setup
+## Browser
 
 Bind `subnecto` to your desired namespace with the Subnecto constructor.
 
