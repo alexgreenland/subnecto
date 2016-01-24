@@ -9,6 +9,10 @@ describe('Subnecto', function() {
 
 describe('subnecto', function() {
 	it('has a base model', function() {
+		expect(subnecto.version).toEqual('0.0.1');
+	});
+	
+	it('has a base model', function() {
 		expect(subnecto.BaseModel).toBeDefined();
 	});
 });

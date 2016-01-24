@@ -7,7 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "node spec/run"
+    "test": "node spec/run",
+    "build": "node build"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,11 @@
   },
   "homepage": "https://github.com/alexgreenland/subnecto#readme",
   "devDependencies": {
+    "browserify": "^13.0.0",
     "jasmine": "^2.4.1"
+  },
+  "dependencies": {
+    "esprima": "^2.7.1",
+    "node-uuid": "^1.4.7"
   }
 }
