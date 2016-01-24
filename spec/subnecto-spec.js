@@ -9,7 +9,7 @@ describe('Subnecto', function() {
 describe('subnecto', function() {
 	it('has the version identifier', function() {
 		var subnecto = new Subnecto();
-		expect(subnecto.version).toEqual('0.0.1');
+		expect(subnecto.version).toEqual('0.0.2');
 	});
 	
 	it('generates a unique ID', function() {
