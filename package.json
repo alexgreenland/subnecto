@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "node spec/run",
-    "build": "node build"
+    "bundle": "node build/bundle",
+    "minify": "node build/minify"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,8 @@
   "homepage": "https://github.com/alexgreenland/subnecto#readme",
   "devDependencies": {
     "browserify": "^13.0.0",
-    "jasmine": "^2.4.1"
+    "jasmine": "^2.4.1",
+    "uglify-js": "^2.6.1"
   },
   "dependencies": {
     "esprima": "^2.7.1",
