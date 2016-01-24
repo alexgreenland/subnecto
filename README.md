@@ -14,9 +14,7 @@ A lightweight, extensible and reactive model-driven library. Model events can be
 
 ### Browser
 
-Bind `subnecto` to your desired namespace with the Subnecto constructor.
-
-	<script src="../subnecto.js"></script>
+	<script src="subnecto.js"></script>
 	<script>
 		window.subnecto = new Subnecto();
 	</script>
