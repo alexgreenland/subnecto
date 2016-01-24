@@ -2,6 +2,8 @@
 
 A lightweight, extensible and reactive model-driven library. Model events can be subscribed to, and bubble up the hierarchy chain.
 
+[Demo](http://alexgreenland.com/subnecto/)
+
 ## Setup
 
 ### Node
