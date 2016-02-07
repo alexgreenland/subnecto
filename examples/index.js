@@ -50,7 +50,7 @@
             
 			userModel.username.on('update', function(model, event) {
                 if (self.superModel.models.propagation.stop.value) {
-                    event.stopPropagation();   
+                    event.stopPropagation();
                 }
 				$('.username-result').html('Hello <strong>' + model.value + '</strong>!');
 			});
