@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 (function() {
-	var uuid = require('node-uuid');
-	var esprima = require('esprima');
 	var Subnecto = function(options) {
+		var uuid;
+		
+		if (typeof window === 'object') {
+			uuid = window.uuid;
+		}
+		
+		if (typeof module === 'object' && module.exports) {
+			uuid = require('node-uuid');
+		}
 		
 		var self = this;
 		this.version = '0.0.2';
@@ -221,21 +228,7 @@
 	    		}
 	    	};
 	    };
-		
-		this.parse = function(string, options) {
-			return esprima.parse(string, options);	
-		};
-		
-		this.parseExpression = function(string, options) {
-			string = string.toLowerCase().replace(' and ', ' && ').replace(' or ', ' || ');
-			var parsed = this.parse(string, options);
-			
-			if (parsed.body[0].type !== 'ExpressionStatement') {
-				return null;
-			}
-			
-			return parsed.body[0].expression;
-		};
+	
 	};
 	
 	if (typeof module === 'object' && module.exports) {

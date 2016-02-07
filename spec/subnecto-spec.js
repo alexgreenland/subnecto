@@ -1,4 +1,4 @@
-var Subnecto = require('../lib/subnecto');
+var Subnecto = require('../subnecto');
 
 describe('Subnecto', function() {
 	it('is a constructor function', function() {
