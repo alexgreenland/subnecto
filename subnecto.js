@@ -66,7 +66,7 @@
             }
         };
 
-        this.subscriptionService = function() {
+        this.SubscriptionService = function() {
             this.models = {};
             this.subscribers = {};
 
@@ -111,18 +111,18 @@
                 });
             };
 
-            this.pushToAll = function(model, includeEvents) {
+            this.pushToAll = function(includeEvents) {
                 // Push the model to all subscribers.
                 var self = this;
 
                 var modelIds = Object.keys(self.subscribers);
 
                 modelIds.forEach(function(modelId) {
-                    var modelSubscribers = Object.keys(modelIds[modelId]);
+                    var modelSubscribers = Object.keys(self.subscribers[modelId]);
                     var model = self.models[modelId];
 
                     modelSubscribers.forEach(function(event) {
-                        var modelEventSubscribers = modelSubscribers[event];
+                        var modelEventSubscribers = self.subscribers[modelId][event];
                         
                         if (includeEvents && includeEvents.length !== 0 && includeEvents.indexOf(event) !== -1) {
                             runModelEventFunction(model, modelEventSubscribers);
