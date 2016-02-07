@@ -124,9 +124,10 @@
                     modelSubscribers.forEach(function(event) {
                         var modelEventSubscribers = self.subscribers[modelId][event];
                         
-                        if (includeEvents && includeEvents.length !== 0 && includeEvents.indexOf(event) !== -1) {
-                            runModelEventFunction(model, modelEventSubscribers);
-                        } else {
+                        if (!includeEvents || includeEvents.length == 0) {
+                            runModelEventFunction(model, modelEventSubscribers);     
+                                                   
+                        } else if (includeEvents.indexOf(event) !== -1) {
                             runModelEventFunction(model, modelEventSubscribers);
                         }
                     });
