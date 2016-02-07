@@ -69,6 +69,13 @@
         this.SubscriptionService = function() {
             this.models = {};
             this.subscribers = {};
+            
+            var SubscriptionEvent = function() {
+                this.stopPropagationValue = false; 
+                this.stopPropagation = function() {
+                    this.stopPropagationValue = true;
+                };
+            };
 
             this.subscribe = function(model, event, func) {
                 // Subscribe to events on the model. Store at the key.
@@ -89,6 +96,8 @@
                 // and bubble up the hierarchy chain
                 var self = this;
                 var currentModel = model;
+                var stopPropagation = false;
+                
                 do {
                     var modelSubscribers = self.subscribers[currentModel.id];
                     if (!modelSubscribers) {
@@ -100,9 +109,13 @@
                     }
 
                     modelEventSubscribers.forEach(function(func) {
-                        func(currentModel);
+                        var subscriptionEvent = new SubscriptionEvent();
+                        func(currentModel, subscriptionEvent);
+                        if (subscriptionEvent.stopPropagationValue) {
+                            stopPropagation = true;
+                        }
                     });
-                } while (currentModel = currentModel.parent);
+                } while (!stopPropagation && (currentModel = currentModel.parent));
             };
             
             var runModelEventFunction = function(model, modelEventSubscribers) {
