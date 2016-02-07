@@ -1,7 +1,6 @@
 (function($) {
 	
 	window.subnecto = new Subnecto({
-		idGeneratorType: 'uuid'
 	});
 
 	var subnectoExampleApp = function() {
@@ -11,32 +10,74 @@
 		this.UserModel = function(parent) {
 			subnecto.BaseModel.call(this, parent);
 			this.username = new subnecto.ValueModel(this);
+            
+            this.access = function() {
+                this.push('access');
+            };
 		};
+        
+        this.PropagationModel = function(parent) {
+			subnecto.BaseModel.call(this, parent);
+            this.stop = new subnecto.BooleanModel(this);
+            this.stop.value = false;
+        };
 	
 		this.initModelPublishers = function() {
 			$('#username-input').keyup(function(e) {
 				self.superModel.models.user.username.update($(this).val());
 			});
+            
+            $('#btn-access').click(function(e) {
+                e.preventDefault();
+                self.superModel.models.user.access();
+            });
+            
+            $('#btn-stop-propagation').click(function(e) {
+                self.superModel.models.propagation.stop.update(true);
+            });
+            
+            $('#btn-resume-propagation').click(function(e) {
+                self.superModel.models.propagation.stop.update(false);
+            });
 		};
 	
 		this.initModelSubscribers = function() {
 			var userModel = self.superModel.models.user;
-			userModel.username.on('update', function(model) {
+            
+            userModel.on('access', function(model) {
+                $('.user-update-events').append('<code>subnectoExampleApp.superModel.models.<strong>user:access</strong></code><br>');
+            });
+            
+			userModel.username.on('update', function(model, event) {
+                if (self.superModel.models.propagation.stop.value) {
+                    event.stopPropagation();
+                }
 				$('.username-result').html('Hello <strong>' + model.value + '</strong>!');
 			});
 			
-			subnecto.SubscriptionService.getInstance().subscribe(userModel.username, 'update', function(model) {
+			userModel.username.on('update', function(model) {
 				$('.username-update-events').append('<code>subnectoExampleApp.superModel.models.<strong>user.username:update</strong></code><br>');
 			});
 			
-			subnecto.SubscriptionService.getInstance().subscribe(userModel, 'update', function(model) {
+			userModel.on('update', function(model) {
 				$('.user-update-events').append('<code>subnectoExampleApp.superModel.models.<strong>user:update</strong></code><br>');
 			});
+            
+            self.superModel.models.propagation.stop.on('update', function(model, event) {
+                if (model.value) {
+                    $('#btn-stop-propagation').addClass('hidden');
+                    $('#btn-resume-propagation').removeClass('hidden');
+                } else {
+                    $('#btn-stop-propagation').removeClass('hidden');
+                    $('#btn-resume-propagation').addClass('hidden');
+                }
+            });
 		};
 	
 	    this.ModelsModel = function(parent) {
 	    	subnecto.BaseModel.call(this, parent);
 			this.user = new self.UserModel(this);
+            this.propagation = new self.PropagationModel(this);
 	    	// this.users = new self.UsersModel(this);
 	    	// this.products = new self.ProductsModel(this);
 	    };
@@ -49,8 +90,8 @@
 		this.initModel = function() {
 			this.superModel = new self.SuperModel();
 			this.superModel.models = new self.ModelsModel(this.superModel);
-			this.initModelPublishers();
 			this.initModelSubscribers();
+			this.initModelPublishers();
 		};
 	
 	};
