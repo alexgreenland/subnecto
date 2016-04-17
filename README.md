@@ -57,7 +57,7 @@ Instantiate and initialise the model. We have made a container as the top-level 
         
 	var initModel = function() {
     	var modelContainer = new ModelContainer();
-    	modelContainer.models = new ModelsModel(modelContainer);
+    	modelContainer.models.value = new ModelsModel(modelContainer);
     	initModelPublishers();
     	initModelSubscribers();
     };
