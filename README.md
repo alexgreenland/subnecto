@@ -52,12 +52,12 @@ Subscribers respond to model events. Bind your subscribers to model functions, u
 Instantiate and initialise the model. We have made a container as the top-level model to hold our models.
 	    
     var ModelContainer = function() {
-        this.models = new subnecto.ValueModel();
+        this.models;
     }; 
         
 	var initModel = function() {
     	var modelContainer = new ModelContainer();
-    	modelContainer.models.value = new ModelsModel(modelContainer);
+    	modelContainer.models = new ModelsModel(modelContainer);
     	initModelPublishers();
     	initModelSubscribers();
     };
