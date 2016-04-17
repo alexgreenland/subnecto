@@ -25,16 +25,16 @@ A lightweight, extensible and reactive model-driven library. Model events can be
 
 Create your models derived from the Subnecto models.
 
-	this.UserModel = function(parent) {
+	var UserModel = function(parent) {
 		subnecto.BaseModel.call(this, parent);
 		this.username = new subnecto.ValueModel(this);
 	};
 
 Create a model container to hold your models, for example:
 
-    this.ModelsModel = function(parent) {
+    var ModelsModel = function(parent) {
     	subnecto.BaseModel.call(this, parent);
-		this.user = new self.UserModel(this);
+		this.user = new UserModel(this);
     };
 
 Publishers are responsible for pushing changes to the models. Bind your publishers to model functions, using a DOM library of your choice.
@@ -49,11 +49,15 @@ Subscribers respond to model events. Bind your subscribers to model functions, u
 		
 	};
 
-Instantiate and initialise the model. The `SuperModel` is the Subnecto model container, and is intended to be the container of your models container, `ModelsModel`.
+Instantiate and initialise the model. We have made a container as the top-level model to hold our models.
 	    
+    var ModelContainer = function() {
+        this.models = new subnecto.ValueModel();
+    }; 
+        
 	var initModel = function() {
-    	var superModel = new SuperModel();
-    	superModel.models = new ModelsModel(this.superModel);
+    	var modelContainer = new ModelContainer();
+    	modelContainer.models = new ModelsModel(modelContainer);
     	initModelPublishers();
     	initModelSubscribers();
     };
