@@ -84,12 +84,12 @@
 		
 		this.ModelContainer = function(parent) {
 	    	subnecto.BaseModel.call(this, parent);
-			this.models = new subnecto.ValueModel();
+			this.models;
 		};
 	
 		this.initModel = function() {
 			this.modelContainer = new self.ModelContainer();
-			this.modelContainer.models.value = new self.ModelsModel(this.modelContainer);
+			this.modelContainer.models = new self.ModelsModel(this.modelContainer);
 			this.initModelSubscribers();
 			this.initModelPublishers();
 		};
